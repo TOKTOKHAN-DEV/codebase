@@ -1,0 +1,56 @@
+{
+  "name": "@codebase/cli-plugin-gen-source",
+  "version": "0.0.1",
+  "description": "A CLI plugin for generating source code built by TOKTOKHAN.DE",
+  "author": "TOKTOKHAN.DEV <fe-system@toktokhan.dev>",
+  "license": "ISC",
+  "type": "module",
+  "homepage": "https://www.codebase.page/docs/docs/tokript/Offical%20Plugins/gen-img",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/tree/main/packages/cli-plugins/gen-img"
+  },
+  "bugs": {
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "templates",
+    "dist",
+    "!dist/*.map"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -c --watch",
+    "play": "pnpm build:watch & node --watch play/playground.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api-extractor": "api-extractor run --local --verbose"
+  },
+  "keywords": [
+    "cli",
+    "plugin",
+    "page",
+    "code",
+    "generation",
+    "toktokhan_dev"
+  ],
+  "dependencies": {
+    "@codebase/cli": "workspace:*",
+    "@codebase/node": "workspace:*",
+    "@codebase/universal": "workspace:*",
+    "enquirer": "^2.4.1",
+    "eta": "^3.4.0",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@codebase/ts-config": "workspace:*",
+    "@types/lodash": "^4.17.0"
+  }
+}

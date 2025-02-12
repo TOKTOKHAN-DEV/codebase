@@ -1,0 +1,47 @@
+{
+  "name": "@codebase/react-app",
+  "version": "0.0.6",
+  "description": "A utility library for global use in React App environments.",
+  "author": "TOKTOKHAN.DEV <fe-system@toktokhan.dev>",
+  "license": "ISC",
+  "type": "module",
+  "homepage": "https://www.codebase.page/docs/react-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/blob/main/packages/react/app",
+    "directory": "packages/react/app"
+  },
+  "bugs": {
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
+  },
+  "main": "./dist/index.mjs",
+  "files": [
+    "dist",
+    "!dist/*.map"
+  ],
+  "scripts": {
+    "build": "echo 'not implemented'",
+    "api-extractor": "api-extractor run --local --verbose"
+  },
+  "keywords": [
+    "react",
+    "react-app",
+    "react-native"
+  ],
+  "dependencies": {
+    "dayjs": "^1.10.6",
+    "react": "^18.2.0",
+    "@codebase/react-universal": "workspace:*"
+  },
+  "devDependencies": {
+    "@codebase/ts-config": "workspace:*"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  }
+}

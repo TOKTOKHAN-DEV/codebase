@@ -1,3 +1,17 @@
 packages:
-  - "apps/*"
-  - "packages/*"
+  # Apps
+  - 'apps/*'
+
+  # Configs
+  - 'configs/*'
+
+  # Packages
+  - 'packages/*'
+  - 'packages/react/universal'
+  - 'packages/react/web'
+  - 'packages/cli-plugins/*'
+  - 'packages/zustand/*'
+
+  # # Templates
+  - 'templates/*'
+  - 'templates/rn-native-base/template'

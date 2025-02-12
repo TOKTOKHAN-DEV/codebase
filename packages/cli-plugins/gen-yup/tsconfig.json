@@ -1,0 +1,7 @@
+{
+  "extends": "@codebase/ts-config/base.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
+  }
+}

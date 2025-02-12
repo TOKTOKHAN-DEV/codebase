@@ -1,0 +1,175 @@
+
+<%
+  const { utils, route, config, myConfig, dataFromApiTemplate } = it;
+  const { query } = route.request;
+  const { errorType } = route.response;
+  const { getConfigByRoute,paginationTargetKeywords } = dataFromApiTemplate;
+
+  const { 
+    conditions:{
+      hasPagination,
+      includeReactQuery,
+      includeReactSuspenseQuery,
+      isQuery,
+      isMutation,
+      isOptionalVariables,
+    },
+    data: {
+      rawWrapperArgs,
+      wrapperArgs,
+      queryKeyName,
+      functionName,
+      apiInstanceName,
+      apiClassName,
+      hookVariant,
+      key,
+      methodKey,
+      pagination
+    },
+    utils: {
+      upperSnakeCase,
+      removeModuleName,
+      argToTmpl,
+    }
+  } = getConfigByRoute(route);
+
+  const { _, classNameCase } = utils;
+
+  const conditionalParamsText = isOptionalVariables ? "params?" : "params"
+  const conditionCallWithVariabels = isQuery ? `(${conditionalParamsText}.variables)` : "";
+  const conditionParamQueryKey = isQuery ? `,${conditionalParamsText}.variables` : "";
+  const conditionWrapFunc =  isQuery ? "() =>" : "";
+  const conditionalQueryKeyParams =  isQuery ? `${conditionalParamsText}.variables` : "";
+  const conditionalFn =  isQuery ? "queryFn" : "mutationFn";
+
+  const routeDocs = includeFile("@base/route-docs", { config, route, utils });
+  const lowerhookVariant =  _.lowerCase(hookVariant)
+  const hookKeyName = `${lowerhookVariant}Key`;
+
+  const isAxiosInstance = myConfig.httpClientType === 'axios'
+  const fetchErrorType = `{ error: ${errorType} }`
+
+  const initialPageParam = () => {
+    if(typeof pagination.initialPageParam === "string") return pagination.initialPageParam;
+    if(typeof pagination.initialPageParam === "function") return pagination.initialPageParam({ apiInstanceName, functionName, pagination})
+  }
+
+  const getNextPage = () => {
+    if(typeof pagination.getNextPage === "string") return pagination.getNextPage;
+    if(typeof pagination.getNextPage === "function") return pagination.getNextPage({ apiInstanceName, functionName, pagination})
+  }
+
+  const getNextPageParam = () => {
+    if(typeof pagination.getNextPageParam === "string") return pagination.getNextPageParam;
+    if(typeof pagination.getNextPageParam === "function") return pagination.getNextPageParam({ apiInstanceName, functionName, pagination})
+  }
+ %>
+
+<% if (isQuery) { %>
+  <% if (includeReactSuspenseQuery) { %>
+    /**
+      <%~ routeDocs.description %>
+
+      * <% /* Here you can add some other JSDoc tags */ %>
+
+      <%~ routeDocs.lines %>
+    */
+
+    export const use<%~ classNameCase(functionName) %>SuspenseQuery = <
+      TData = RequestFnReturn<typeof <%= apiInstanceName %>.<%~ functionName %>>,
+    >(
+      <%~ conditionalParamsText %>: SuspenseQueryHookParams<typeof <%= apiInstanceName %>.<%~ functionName %>,
+      <% if (isAxiosInstance) { %>
+        AxiosError<<%~ errorType %>>
+      <% } else { %>
+        <%~ fetchErrorType %>
+      <% } %>
+      , TData>,
+    ) => {
+      const <%~ hookKeyName %> = <%~ queryKeyName %>.<%~ methodKey %>(<%~ `${conditionalParamsText}.variables` %>);
+      return useSuspenseQuery({
+        <%~ hookKeyName %>,
+        queryFn: () => <%= apiInstanceName %>.<%~ functionName %>(<%~ `${conditionalParamsText}.variables` %>),
+        ...params?.options,
+      });
+    };
+
+
+  /**
+     * @name <%~ _.camelCase(functionName) %>QueryOptions
+     * @description 이 옵션은 Suspense 기반의 병렬 데이터 쿼리를 위한 설정입니다.
+     * `useSuspenseQueries`를 사용하여 여러 쿼리를 병렬로 처리할 때 활용하세요.
+  */
+  
+  export const <%~ _.camelCase(functionName) %>SuspenseQueryOptions = <
+    TData = RequestFnReturn<typeof <%= apiInstanceName %>.<%~ functionName %>>,
+  >(
+    <%~ conditionalParamsText %>: SuspenseQueryHookParams<typeof <%= apiInstanceName %>.<%~ functionName %>,
+    <% if (isAxiosInstance) { %>
+       unknown
+    <% } else { %>
+      <%~ fetchErrorType %>
+    <% } %>
+    , TData>,
+  ) => {
+    const queryKey = <%~ queryKeyName %>.<%~ methodKey %>(<%~ `${conditionalParamsText}.variables` %>);
+    return {
+      queryKey,
+      queryFn: () => <%= apiInstanceName %>.<%~ functionName %>(<%~ `${conditionalParamsText}.variables` %>),
+      ...params?.options,
+    };
+  };
+  <% } %>
+
+  <% if (isQuery && hasPagination) { %>
+    /**
+    <%~ routeDocs.description %>
+    * <% /* Here you can add some other JSDoc tags */ %>
+    <%~ routeDocs.lines %>
+    */
+    export const use<%~ classNameCase(functionName) %>InfiniteSuspenseQuery = <
+      TData = InfiniteData<
+        RequestFnReturn<typeof <%= apiInstanceName %>.<%~ functionName %>>,
+        Parameter<typeof <%= apiInstanceName %>.<%~ functionName %>>
+      >,
+    >(
+      <%~ conditionalParamsText %>: SuspenseInfiniteQueryHookParams<typeof <%= apiInstanceName %>.<%~ functionName %>,
+      <% if (isAxiosInstance) { %>
+        AxiosError<<%~ errorType %>>
+      <% } else { %>
+        <%~ errorType %>
+      <% } %>
+      , TData>,
+    ) => {
+      const <%~ hookKeyName %> =  <%~ queryKeyName %>.<%~ methodKey %>_INFINITE(<%~ conditionalQueryKeyParams %>);
+      return useSuspenseInfiniteQuery({
+        <%~ hookKeyName %>,
+        initialPageParam:  <% if (initialPageParam()) { %>
+          <%~ initialPageParam() %> 
+        <% } else { %>
+          null
+        <% } %>,
+        queryFn: <% if (getNextPage()) { %>
+          <%~ getNextPage() %> 
+        <% } else { %>
+          ({ pageParam }) => {
+            return <%= apiInstanceName %>.<%~ functionName %>({
+              ...params?.variables,
+              query: { ...params?.variables?.query, <%~ pagination.nextKey %>: pageParam, }
+            });
+          }
+        <% } %>,
+        getNextPageParam: 
+        <% if (getNextPageParam()) { %>
+          <%~ getNextPageParam() %> 
+        <% } else { %>
+          (lastPage) => {
+            const <%~ pagination.nextKey %> = lastPage.cursor ?? null;
+            return <%~ pagination.nextKey %>;
+          }
+        <% } %>,
+        ...params?.options,
+      });
+    };
+  <% } %>
+<% } %>

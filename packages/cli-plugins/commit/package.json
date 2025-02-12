@@ -1,0 +1,57 @@
+{
+  "name": "@codebase/cli-plugin-commit",
+  "version": "0.0.10",
+  "description": "A CLI plugin for managing commits built by TOKTOKHAN.DEV",
+  "author": "TOKTOKHAN.DEV <fe-system@toktokhan.dev>",
+  "license": "ISC",
+  "type": "module",
+  "homepage": "https://www.codebase.page/docs/docs/cli/Offical%20Plugins/commit",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/blob/main/packages/cli-plugins/commit"
+  },
+  "bugs": {
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!dist/*.map"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -c --watch",
+    "play": "pnpm build:watch & node --watch play/playground.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api-extractor": "api-extractor run --local --verbose"
+  },
+  "keywords": [
+    "cli",
+    "plugin",
+    "commit",
+    "toktokhan_dev",
+    "tool",
+    "codebase",
+    "script"
+  ],
+  "dependencies": {
+    "@codebase/cli": "workspace:*",
+    "@codebase/node": "workspace:*",
+    "@codebase/universal": "workspace:*",
+    "clear": "^0.1.0",
+    "enquirer": "^2.4.1",
+    "lodash": "^4.17.21"
+  },
+  "devDependencies": {
+    "@codebase/ts-config": "workspace:*",
+    "@types/clear": "^0.1.4",
+    "@types/lodash": "^4.17.0"
+  }
+}

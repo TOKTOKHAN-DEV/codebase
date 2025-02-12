@@ -1,0 +1,56 @@
+<%
+const { utils, route, config, modelTypes,dataFromApiTemplate } = it;
+const routes = route.routes;
+const { getConfigByRoute, queryKeyName } = dataFromApiTemplate;
+%>
+
+/**
+ * query key 에 undefined 를 포함시키지 않기 위한 함수입니다.
+ */
+const isDefined = (v: unknown) => typeof v !== "undefined"
+
+/**
+ * query-keys
+ */
+export const <%= queryKeyName %> = {
+  <% routes.forEach((route) => { %>
+    <% 
+      const {
+        conditions:{
+          hasPagination,
+          isQuery,
+          isMutation,
+          isOptionalVariables,
+        },
+        data: {
+          rawWrapperArgs,
+          wrapperArgs,
+          functionName,
+          apiInstanceName,
+          apiClassName,
+          hookVariant,
+          key,
+          methodKey,
+        },
+        utils: {
+          upperSnakeCase,
+          removeModuleName,
+          argToTmpl,
+        }
+      } = getConfigByRoute(route);
+      const queryKey = `(variables? : Parameter<typeof ${apiInstanceName}.${functionName}>) => ["${key}", variables].filter(isDefined)`
+      const mutationKey = `() => ["${key}"]`
+      const infiniteQueryKey = `(variables? : Parameter<typeof ${apiInstanceName}.${functionName}>) => ["${key}_INFINITE", variables].filter(isDefined)`
+    %>
+    <%~ methodKey %>: <%~ isQuery ? queryKey : mutationKey  %>,
+    <% if(hasPagination) { %>
+     <%~ methodKey %>_INFINITE : <%~ infiniteQueryKey %>,
+    <% }%>
+  <% }) %>
+}; 
+
+
+
+
+
+

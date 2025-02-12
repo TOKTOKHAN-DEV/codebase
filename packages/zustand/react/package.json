@@ -1,0 +1,51 @@
+{
+  "name": "@codebase/zustand-react",
+  "version": "0.0.3",
+  "description": "A comprehensive Zustand utility that combines all modules from `@codebase/zustand-create-store-context` and `@codebase/zustand-with-setter` into a single package, designed for efficient React state management.",
+  "author": "TOKTOKHAN.DEV <fe-system@toktokhan.dev>",
+  "license": "ISC",
+  "type": "module",
+  "homepage": "https://www.codebase.page/docs/zustand/overview",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/tree/main/packages/zustand/react"
+  },
+  "bugs": {
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
+  },
+  "main": "dist/index.js",
+  "files": [
+    "dist",
+    "!dist/*.map"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "rollup -c",
+    "build:watch": "rollup -c --watch",
+    "play": "pnpm build:watch & node --watch play/playground.js",
+    "test": "jest",
+    "api-extractor": "api-extractor run --local --verbose"
+  },
+  "keywords": [
+    "zustand",
+    "zustand react",
+    "zustand with setter",
+    "zustand with context",
+    "zustand local state management",
+    "createStoreContext",
+    "withSetter"
+  ],
+  "devDependencies": {
+    "@codebase/ts-config": "workspace:*"
+  },
+  "dependencies": {
+    "@codebase/zustand-create-store-context": "workspace:*",
+    "@codebase/zustand-with-setter": "workspace:*"
+  }
+}

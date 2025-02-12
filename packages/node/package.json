@@ -1,0 +1,63 @@
+{
+  "name": "@codebase/node",
+  "version": "0.0.10",
+  "description": "A Node.js utility library built by TOKTOKHAN.DEV",
+  "author": "TOKTOKHAN.DEV <fe-system@toktokhan.dev>",
+  "license": "ISC",
+  "main": "dist/index.js",
+  "type": "module",
+  "homepage": "https://www.codebase.page/docs/node",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/tree/main/packages/node"
+  },
+  "bugs": {
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
+  },
+  "files": [
+    "dist",
+    "!dist/*.map"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.cjs",
+      "import": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "dev": "pnpm build && node dist/index.js",
+    "build": "rollup -c",
+    "build:watch": "rollup -c --watch",
+    "play": "pnpm build:watch & node --watch play/playground.js",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage",
+    "api-extractor": "api-extractor run --local --verbose"
+  },
+  "keywords": [
+    "node",
+    "utility",
+    "toktokhan_dev"
+  ],
+  "devDependencies": {
+    "@codebase/ts-config": "workspace:*",
+    "@types/execa": "^2.0.0",
+    "@types/lodash": "^4.17.0",
+    "@types/yaml": "^1.9.7",
+    "memfs": "^4.9.2",
+    "rollup-jest": "^3.1.0"
+  },
+  "dependencies": {
+    "@codebase/universal": "workspace:*",
+    "boxen": "^7.1.1",
+    "chalk": "^5.3.0",
+    "eta": "^3.4.0",
+    "execa": "^8.0.1",
+    "globby": "^13.2.2",
+    "lodash": "^4.17.21",
+    "minimatch": "^9.0.3",
+    "ora": "^8.0.1",
+    "prettier": "^3.2.5",
+    "yaml": "^2.4.1"
+  }
+}

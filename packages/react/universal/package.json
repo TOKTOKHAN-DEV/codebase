@@ -1,0 +1,58 @@
+{
+  "name": "@codebase/react-universal",
+  "version": "0.0.11",
+  "description": "A utility library for global use in React environments.",
+  "author": "TOKTOKHAN.DEV <fe-system@toktokhan.dev>",
+  "license": "ISC",
+  "type": "module",
+  "homepage": "https://www.codebase.page/docs/react-universal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/blob/main/packages/react/universal",
+    "directory": "packages/react/universal"
+  },
+  "bugs": {
+    "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "main": "./dist/index.js",
+  "files": [
+    "dist",
+    "!dist/*.map"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "test": "jest",
+    "api-extractor": "api-extractor run --local --verbose"
+  },
+  "keywords": [
+    "react-hooks",
+    "react-utils",
+    "react-library",
+    "react-components",
+    "react-hooks-library",
+    "react-utilities"
+  ],
+  "dependencies": {
+    "@tanstack/react-query": "^4.2.3",
+    "@codebase/universal": "workspace:*",
+    "axios": "^1.3.4",
+    "csstype": "^3.1.3",
+    "dayjs": "^1.10.6",
+    "immer": "^10.0.1",
+    "react": "^18.2.0",
+    "use-context-selector": "^1.4.1"
+  },
+  "devDependencies": {
+    "@codebase/ts-config": "workspace:*",
+    "@types/node": "^20",
+    "@types/react": "^18"
+  },
+  "sideEffect": false
+}
