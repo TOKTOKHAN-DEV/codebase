@@ -1,6 +1,6 @@
 {
   "name": "@codebase/eslint-config",
-  "version": "0.0.2",
+  "version": "1.0.0",
   "license": "MIT",
   "dependencies": {
     "eslint-config-prettier": "^9.1.0",

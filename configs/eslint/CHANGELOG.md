@@ -1,5 +1,11 @@
 # @codebase/eslint-config
 
+## 1.0.0
+
+### Major Changes
+
+- [`aa58418`](https://github.com/TOKTOKHAN-DEV/codebase/commit/aa58418ddcd912e78b04ef2f4d625c0345cb0ca2) Thanks [@wkddnjset](https://github.com/wkddnjset)! - deploy test
+
 ## 0.0.2
 
 ### Patch Changes
