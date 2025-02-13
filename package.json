@@ -11,6 +11,7 @@
     "lint": "turbo lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "start:codebase": "pnpm --filter @codebase/cli dev",
+    "start:starter": "pnpm --filter @codebase/starter dev",
     "commit": "codebase commit",
     "slack": "tsx ./scripts/slack.ts",
     "slack:test": "pnpm slack 23 '[{\"name\": \"@codebase/starter\", \"version\": \"1.2.0\"}, {\"name\": \"@codebase/github\", \"version\": \"0.8.9\"}]'"

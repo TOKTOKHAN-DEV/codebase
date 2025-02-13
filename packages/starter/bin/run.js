@@ -32,8 +32,8 @@ const __filename = cjsUrl.fileURLToPath(import.meta.url);
 const __dirname = cjsPath.dirname(__filename);
 const require = cjsModule.createRequire(import.meta.url);
 const packageRoot = createPackageRoot(__dirname);
-const CACHE_PATH = path.join(os.homedir(), 'tokit', '.cache');
-path.join(os.homedir(), 'tokit', '.temp');
+const CACHE_PATH = path.join(os.homedir(), 'starter', '.cache');
+path.join(os.homedir(), 'starter', '.temp');
 const PACKAGE_PATH = packageRoot('package.json');
 
 const PACKAGE_MAP = {
@@ -60,7 +60,7 @@ const isStartWith = (str) => (target) => target.startsWith(str);
 const releasedTemplates = Object.assign(memoize((packageName) => github.repos
     .listReleases({
     owner: 'TOKTOKHAN-DEV',
-    repo: 'toktokhan-dev',
+    repo: 'codebase',
 })
     .then(flow(prop('data'), filter(flow(prop('name'), isStartWith(`@codebase/${packageName}`)))))), {
     summary: memoize((name) => releasedTemplates(name).then(map(flow(pick(['id', 'name', 'published_at', 'tag_name', 'zipball_url']), (data) => {
@@ -291,7 +291,7 @@ const proceedGit = async ({ cloneUrl, baseDir }) => {
         // awaited(infoLog('Initialized git repository')),
         awaited(() => git.add('.')), 
         // awaited(infoLog('Added all files')),
-        awaited(() => git.commit('Upload TOKIT`s template')), 
+        awaited(() => git.commit('Upload Stater`s template')), 
         // awaited(infoLog('Committed changes')),
         awaited(() => git.branch(['-M', 'main'])), 
         // awaited(infoLog('Renamed branch to main')),
@@ -315,7 +315,7 @@ const storeCache = async (config) => {
     await removeGit(cachePath);
 };
 
-const name = 'tokit';
+const name = 'starter';
 const version = json(PACKAGE_PATH).version;
 const isWindows = os.platform() === 'win32';
 /**
@@ -329,7 +329,7 @@ async function main() {
     await welcome();
     const app = program
         .name(name)
-        .description("CLI to help install tok's template")
+        .description("CLI to help install codebase's template")
         .version(version)
         .addArgument(new Argument('path', 'source code path').argOptional())
         .addOption(new Option('-p, --project-name', ''))
