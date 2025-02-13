@@ -16,7 +16,7 @@ import { createRepository } from './utils/create-repository'
 import { proceedGit } from './utils/proceed-git'
 import { storeCache } from './utils/store-cache'
 
-const name = 'tokit'
+const name = 'starter'
 const version = json<{ version: string }>(PACKAGE_PATH).version
 const isWindows = os.platform() === 'win32'
 
@@ -32,7 +32,7 @@ async function main() {
   await welcome()
   const app = program
     .name(name)
-    .description("CLI to help install tok's template")
+    .description("CLI to help install codebase's template")
     .version(version)
     .addArgument(new Argument('path', 'source code path').argOptional())
     .addOption(new Option('-p, --project-name', ''))

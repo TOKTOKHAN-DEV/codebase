@@ -12,7 +12,7 @@
     "start:codebase": "pnpm --filter @codebase/cli dev",
     "commit": "codebase commit",
     "slack": "tsx ./scripts/slack.ts",
-    "slack:test": "pnpm slack 23 '[{\"name\": \"@codebase/tokit\", \"version\": \"1.2.0\"}, {\"name\": \"@codebase/github\", \"version\": \"0.8.9\"}]'"
+    "slack:test": "pnpm slack 23 '[{\"name\": \"@codebase/starter\", \"version\": \"1.2.0\"}, {\"name\": \"@codebase/github\", \"version\": \"0.8.9\"}]'"
   },
   "devDependencies": {
     "@changesets/changelog-github": "^0.5.0",

@@ -6,8 +6,8 @@ import { removeStr } from '@codebase/universal'
 import { mapValues } from 'lodash'
 
 import { InitialQuestionResponse } from '../prompts/initial'
-import { cachedPackage } from '../utils/cached-package'
-import { modifyPackageJson } from '../utils/modify-package-json'
+import { cachedPackage } from './cached-package'
+import { modifyPackageJson } from './modify-package-json'
 
 export async function cacheToLocal(config: InitialQuestionResponse) {
   const cachePath = cachedPackage(config.template, config.version)

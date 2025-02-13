@@ -5,7 +5,7 @@ import enquirer from 'enquirer'
 import { prop } from 'lodash/fp'
 
 import { PACKAGE_MAP } from '../constants/package-map'
-import { github, releasedTemplates } from '../services/github'
+import { github } from '../services/github'
 import { isCached } from '../utils/is-cached'
 import { logMissingConfigMessage } from '../utils/log-missing-config-msg'
 

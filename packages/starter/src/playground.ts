@@ -1,10 +1,6 @@
-import path from 'path'
-
-import { $, createPackageRoot } from '@codebase/node'
 import { isNotNullish } from '@codebase/universal'
 
 import enquirer from 'enquirer'
-import { add } from 'lodash'
 import { prop } from 'lodash/fp'
 
 import { github } from './services/github'

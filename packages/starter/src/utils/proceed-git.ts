@@ -21,7 +21,7 @@ export const proceedGit = async ({ cloneUrl, baseDir }: RemoteGitParams) => {
       // awaited(infoLog('Initialized git repository')),
       awaited(() => git.add('.')),
       // awaited(infoLog('Added all files')),
-      awaited(() => git.commit('Upload TOKIT`s template')),
+      awaited(() => git.commit('Upload Stater`s template')),
       // awaited(infoLog('Committed changes')),
       awaited(() => git.branch(['-M', 'main'])),
       // awaited(infoLog('Renamed branch to main')),

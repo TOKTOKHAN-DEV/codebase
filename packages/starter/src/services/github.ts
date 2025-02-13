@@ -1,8 +1,8 @@
 import { existsSync } from 'fs'
 import path from 'path'
 
-import { Octokit, RestEndpointMethodTypes } from '@octokit/rest'
 import { ItemOf } from '@codebase/universal'
+import { Octokit, RestEndpointMethodTypes } from '@octokit/rest'
 
 import { filter, flow, map, memoize, pick, prop } from 'lodash/fp'
 
@@ -42,14 +42,12 @@ export const releasedTemplates: {
       github.repos
         .listReleases({
           owner: 'TOKTOKHAN-DEV',
-          repo: 'toktokhan-dev',
+          repo: 'codebase',
         })
         .then(
           flow(
             prop('data'),
-            filter(
-              flow(prop('name'), isStartWith(`@codebase/${packageName}`)),
-            ),
+            filter(flow(prop('name'), isStartWith(`@codebase/${packageName}`))),
           ),
         ),
   ),

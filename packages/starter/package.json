@@ -1,7 +1,7 @@
 {
-  "name": "@codebase/tokit",
+  "name": "@codebase/starter",
   "bin": {
-    "tokit": "bin/run.js"
+    "starter": "bin/run.js"
   },
   "version": "0.0.19",
   "description": "A CLI tool by TOKTOKHAN.DEV for managing and installing frontend boilerplate templates.",
@@ -12,7 +12,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/TOKTOKHAN-DEV/codebase.git",
-    "directory": "packages/tokit"
+    "directory": "packages/starter"
   },
   "bugs": {
     "url": "https://github.com/TOKTOKHAN-DEV/codebase/issues"
